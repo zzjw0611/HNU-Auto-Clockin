@@ -27,5 +27,8 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Start Clocking in
+      env:
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
       run: |
-        python clock_in.py
+        python clock_in.py --username=$username --password=$password
