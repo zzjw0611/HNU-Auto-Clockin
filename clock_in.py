@@ -1,7 +1,7 @@
 from aip import AipOcr
 import requests
 import json
-import time
+import argparse
 
 APP_ID = '23674789'
 API_KEY = '8FGFY6cyLKGXunfB1HRmcb6U'
@@ -11,17 +11,19 @@ OCRClient = AipOcr(APP_ID, API_KEY, SECRET_KEY)
 getimgvcode = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
 captcha = OCRClient.basicGeneralUrl(f'https://fangkong.hnu.edu.cn/imagevcode?token={getimgvcode}')['words_result'][0]['words']
 
-login_info = {"Code":"201905010211","Password":"Abc2!0!linzepeng","VerCode":captcha,"Token":getimgvcode}
+parser = argparse.ArgumentParser(description='manual to this script')
+parser.add_argument('--username', type=str, default=None)
+parser.add_argument('--password', type=str, default=None)
+args = parser.parse_args()
+login_info = {"Code":args.username,"Password":args.password,"VerCode":captcha,"Token":getimgvcode}
 
 login_url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
 set_cookie = requests.post(login_url, json=login_info)
 ASPXAUTH = set_cookie.headers['Set-Cookie'][702:-8]
 access_token = json.loads(set_cookie.text)['data']['AccessToken']
 
-cookie = f'{ASPXAUTH}; TOKEN={getimgvcode}; Hm_lvt_d7e34467518a35dd690511f2596a570e=1612281837,1613093402,1613146382; pgv_pvi=4032871424'
-
 clockin_url = 'https://fangkong.hnu.edu.cn/api/v1/clockinlog/add'
-headers = {'Cookie': cookie}
+headers = {'Cookie': f'{ASPXAUTH}; TOKEN={getimgvcode}; Hm_lvt_d7e34467518a35dd690511f2596a570e=1612281837,1613093402,1613146382; pgv_pvi=4032871424'}
 clockin_data = {"Temperature":"null",
                 "RealProvince":"福建省",
                 "RealCity":"泉州市",
