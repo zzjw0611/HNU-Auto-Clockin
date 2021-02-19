@@ -30,5 +30,6 @@ jobs:
       env:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
+          ocr_ids:  ${{ secrets.OCR_IDS}}
       run: |
-        python clock_in.py --username=$username --password=$password
+        python clock_in.py --username=$username --password=$password --ocr_ids=$ocr_ids
