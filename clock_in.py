@@ -45,5 +45,5 @@ clockin_data = {"Temperature":"null",
                 "Longitude":118.95317077636719,
                 "Latitude":25.116409301757812}
 
-clockin = requests.post(clockin_url, cookie=cookie, json=clockin_data)
+clockin = requests.post(clockin_url, headers=headers, json=clockin_data)
 print(clockin.text)
