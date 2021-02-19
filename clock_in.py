@@ -3,18 +3,18 @@ import requests
 import json
 import argparse
 
-APP_ID = '23674789'
-API_KEY = '8FGFY6cyLKGXunfB1HRmcb6U'
-SECRET_KEY = 'oqkxn9w4fS0sIB1TlGja3wrHrdNSPoYS'
+parser = argparse.ArgumentParser(description='manual to this script')
+parser.add_argument('--username', type=str, default=None)
+parser.add_argument('--password', type=str, default=None)
+parser.add_argument('--ocr_ids', type=list, default=None)
+args = parser.parse_args()
+APP_ID = args.ocr_ids[0]
+API_KEY = args.ocr_ids[1]
+SECRET_KEY = args.ocr_ids[2]
 OCRClient = AipOcr(APP_ID, API_KEY, SECRET_KEY)
 
 getimgvcode = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
 captcha = OCRClient.basicGeneralUrl(f'https://fangkong.hnu.edu.cn/imagevcode?token={getimgvcode}')['words_result'][0]['words']
-
-parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument('--username', type=str, default=None)
-parser.add_argument('--password', type=str, default=None)
-args = parser.parse_args()
 login_info = {"Code":args.username,"Password":args.password,"VerCode":captcha,"Token":getimgvcode}
 
 login_url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
