@@ -6,12 +6,12 @@ import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument('--username', type=str, default=None)
 parser.add_argument('--password', type=str, default=None)
-parser.add_argument('--ocr_ids', type=tuple, default=None)
+parser.add_argument('--app_id', type=str, default=None)
+parser.add_argument('--api_key', type=str, default=None)
+parser.add_argument('--secret_key', type=str, default=None)
 args = parser.parse_args()
-APP_ID = args.ocr_ids[0]
-API_KEY = args.ocr_ids[1]
-SECRET_KEY = args.ocr_ids[2]
-OCRClient = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+
+OCRClient = AipOcr(args.app_id, args.api_key, args.secret_key)
 
 getimgvcode = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
 captcha = OCRClient.basicGeneralUrl(f'https://fangkong.hnu.edu.cn/imagevcode?token={getimgvcode}')['words_result'][0]['words']
