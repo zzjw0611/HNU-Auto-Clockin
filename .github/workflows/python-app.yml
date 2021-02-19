@@ -28,8 +28,10 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Start Clocking in
       env:
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          ocr_ids:  ${{ secrets.OCR_IDS}}
+          username:   ${{ secrets.USERNAME }}
+          password:   ${{ secrets.PASSWORD }}
+          app_id:     ${{ secrets.APP_ID }}
+          api_key:    ${{ secrets.API_KEY }}
+          secret_key: ${{ secrets.SECRET_KEY }}
       run: |
-        python clock_in.py --username=$username --password=$password --ocr_ids=$ocr_ids
+        python clock_in.py --username=$username --password=$password --app_id=$app_id --api_key=$api_key --api_key=$api_key --secret_key=$secret_key
