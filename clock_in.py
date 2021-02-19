@@ -6,7 +6,7 @@ import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument('--username', type=str, default=None)
 parser.add_argument('--password', type=str, default=None)
-parser.add_argument('--ocr_ids', type=list, default=None)
+parser.add_argument('--ocr_ids', type=tuple, default=None)
 args = parser.parse_args()
 APP_ID = args.ocr_ids[0]
 API_KEY = args.ocr_ids[1]
