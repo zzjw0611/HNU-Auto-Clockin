@@ -34,7 +34,7 @@ Duang~~~在GayHub里面找了一圈才看到一个湖大的打卡脚本，作者
 
     进入到**Actions**界面，点击该工作流，然后Run workflow，即可开启自动化运行，你可以在设置里绑定邮箱以接收运行失败的通知，防止未来哪天打卡系统升级了你还蒙在鼓里。
 
-    我设定为每天早晨6：10自动运行，你可以在/.github/workflows/python-app.yml文件里修改，请注意cron语法下的时间为零时区时间，需要将北京时间减8个小时，且分钟在前小时在后。
+    我设定为每天早晨6：10自动运行，你可以在/.github/workflows/python-app.yml文件里修改，请注意cron语法下的时间为零时区时间，需要将北京时间减8个小时，且分钟在前小时在后。详情参见[POSIX cron 语法](https://crontab.guru/)和[官方文档](https://docs.github.com/cn/actions/reference/events-that-trigger-workflows#)。
 
 6. **如果一切顺利的话，应该没有第六步。若不是那样，可以在Discussion里面说。**
 
