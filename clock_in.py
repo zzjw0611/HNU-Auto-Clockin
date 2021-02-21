@@ -19,14 +19,11 @@ OCRClient = AipOcr(args.app_id, args.api_key, args.secret_key)
 def main():
     getimgvcode = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
     captcha = OCRClient.basicGeneralUrl(f'https://fangkong.hnu.edu.cn/imagevcode?token={getimgvcode}')['words_result'][0]['words']
-    if len(captcha) != 4:
-
     login_info = {"Code":args.username,"Password":args.password,"VerCode":captcha,"Token":getimgvcode}
 
     login_url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
     set_cookie = requests.post(login_url, json=login_info)
     ASPXAUTH = set_cookie.headers['Set-Cookie'][702:-8]
-    access_token = json.loads(set_cookie.text)['data']['AccessToken']
 
     clockin_url = 'https://fangkong.hnu.edu.cn/api/v1/clockinlog/add'
     headers = {'Cookie': f'{ASPXAUTH}; TOKEN={getimgvcode}; Hm_lvt_d7e34467518a35dd690511f2596a570e=1612281837,1613093402,1613146382; pgv_pvi=4032871424'}
