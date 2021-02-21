@@ -28,9 +28,9 @@ def main():
     clockin_url = 'https://fangkong.hnu.edu.cn/api/v1/clockinlog/add'
     headers = {'Cookie': f'{ASPXAUTH}; TOKEN={getimgvcode}; Hm_lvt_d7e34467518a35dd690511f2596a570e=1612281837,1613093402,1613146382; pgv_pvi=4032871424'}
     clockin_data = {"Temperature":"null",
-                    "RealProvince":province,
-                    "RealCity":city,
-                    "RealCounty":county,
+                    "RealProvince":args.province,
+                    "RealCity":args.city,
+                    "RealCounty":args.county,
                     "RealAddress":"。",
                     "IsUnusual":"0",
                     "UnusualInfo":"",
