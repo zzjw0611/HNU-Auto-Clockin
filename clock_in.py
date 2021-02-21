@@ -55,5 +55,6 @@ def main():
         isSucccess = 0
     else:
         isSucccess = 1
+    print(clockin.text)
 
 main()
