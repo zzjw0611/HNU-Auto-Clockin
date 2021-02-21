@@ -20,7 +20,9 @@ def main():
     getimgvcode = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
     captcha = OCRClient.basicGeneralUrl(f'https://fangkong.hnu.edu.cn/imagevcode?token={getimgvcode}')['words_result'][0]['words']
     login_info = {"Code":args.username,"Password":args.password,"VerCode":captcha,"Token":getimgvcode}
-
+    lon = json.loads(requests.get(f'http://api.tianditu.gov.cn/geocoder?ds={{"keyWord":\"{args.province+args.city+args.county}\"}}&tk=f24d69bab4ccaafff58d60c5b08fa784'))["location"]["lon"]
+    lat = json.loads(requests.get(f'http://api.tianditu.gov.cn/geocoder?ds={{"keyWord":\"{args.province+args.city+args.county}\"}}&tk=f24d69bab4ccaafff58d60c5b08fa784'))["location"]["lat"]
+    
     login_url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
     set_cookie = requests.post(login_url, json=login_info)
     ASPXAUTH = set_cookie.headers['Set-Cookie'][702:-8]
@@ -47,8 +49,8 @@ def main():
                     "InsulatedAddress":"",
                     "TouchInfo":"",
                     "IsNormalTemperature":"1",
-                    "Longitude":118.95317077636719,
-                    "Latitude":25.116409301757812}
+                    "Longitude":lon,
+                    "Latitude":lat}
 
     clockin = requests.post(clockin_url, headers=headers, json=clockin_data)
     if '成功' in clockin.text or '已提交' in clockin.text:
