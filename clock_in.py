@@ -2,7 +2,9 @@ from aip import AipOcr
 import requests
 import json
 import argparse
+import re
 
+# 初始化变量
 parser = argparse.ArgumentParser()
 parser.add_argument('--username', type=str, default=None)
 parser.add_argument('--password', type=str, default=None)
@@ -14,26 +16,42 @@ parser.add_argument('--api_key', type=str, default=None)
 parser.add_argument('--secret_key', type=str, default=None)
 args = parser.parse_args()
 
+# 初始化OCR识别API
 OCRClient = AipOcr(args.app_id, args.api_key, args.secret_key)
 
-def main():
-    getimgvcode = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
-    captcha = OCRClient.basicGeneralUrl(f'https://fangkong.hnu.edu.cn/imagevcode?token={getimgvcode}')['words_result'][0]['words']
-    login_info = {"Code":args.username,"Password":args.password,"VerCode":captcha,"Token":getimgvcode}
-    lon = json.loads(requests.get(f'http://api.tianditu.gov.cn/geocoder?ds={{"keyWord":\"{args.province+args.city+args.county}\"}}&tk=2355cd686a32d016021bffbc4a69d880').text)["location"]["lon"]
-    lat = json.loads(requests.get(f'http://api.tianditu.gov.cn/geocoder?ds={{"keyWord":\"{args.province+args.city+args.county}\"}}&tk=2355cd686a32d016021bffbc4a69d880').text)["location"]["lat"]
-    
-    login_url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
-    set_cookie = requests.post(login_url, json=login_info)
-    ASPXAUTH = set_cookie.headers['Set-Cookie'][702:-8]
+def captchaOCR():
+    captcha = ''
+    while len(captcha) != 4:
+        token = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
+        captcha = OCRClient.basicGeneralUrl(f'https://fangkong.hnu.edu.cn/imagevcode?token={token}')['words_result'][0]['words']
+    return token, captcha
 
+def login():
+    login_url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
+    token, captcha = captchaOCR()
+    login_info = {"Code":args.username,"Password":args.password,"VerCode":captcha,"Token":token}
+    
+    set_cookie = requests.post(login_url, json=login_info).headers['set-cookie']
+    regex = r"\.ASPXAUTH=(.*?);"
+    ASPXAUTH = re.findall(regex, set_cookie)[2]
+
+    headers = {'Cookie': f'.ASPXAUTH={ASPXAUTH}; TOKEN={token}'}
+    return headers
+
+def setLocation():
+    location = json.loads(requests.get(f'http://api.tianditu.gov.cn/geocoder?ds={{"keyWord":\"{args.province+args.city+args.county}\"}}&tk=2355cd686a32d016021bffbc4a69d880').text)["location"]
+    real_address = "。" # 在此填写详细地址
+    return location["lon"], location["lat"], real_address
+
+def main():
     clockin_url = 'https://fangkong.hnu.edu.cn/api/v1/clockinlog/add'
-    headers = {'Cookie': f'{ASPXAUTH}; TOKEN={getimgvcode}'}
+    headers = login()
+    lon, lat, real_address = setLocation()
     clockin_data = {"Temperature":"null",
                     "RealProvince":args.province,
                     "RealCity":args.city,
                     "RealCounty":args.county,
-                    "RealAddress":"。",
+                    "RealAddress":real_address,
                     "IsUnusual":"0",
                     "UnusualInfo":"",
                     "IsTouch":"0",
@@ -50,13 +68,18 @@ def main():
                     "TouchInfo":"",
                     "IsNormalTemperature":"1",
                     "Longitude":lon,
-                    "Latitude":lat}
+                    "Latitude":lat
+                    }
 
     clockin = requests.post(clockin_url, headers=headers, json=clockin_data)
-    if '成功' in clockin.text or '已提交' in clockin.text:
-        isSucccess = 0
+
+    if clockin.status_code == 200:
+        if '成功' in clockin.text or '已提交' in clockin.text:
+            isSucccess = 0
     else:
         isSucccess = 1
-    print(clockin.text)
+    print(json.loads(clockin.text)['msg'])
+
+    return isSucccess
 
 main()
