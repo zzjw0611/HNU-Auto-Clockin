@@ -61,7 +61,7 @@ def main():
                     "tripinfolist":[{"aTripDate":"","FromAdr":"","ToAdr":"","Number":"","trippersoninfolist":[]}],
                     "toucherinfolist":[],
                     "dailyinfo":{"IsVia":"0","DateTrip":""},
-                    "IsInCampus":"0",
+                    "IsInCampus":"1",
                     "IsViaHuBei":"0",
                     "IsViaWuHan":"0",
                     "InsulatedAddress":"",
