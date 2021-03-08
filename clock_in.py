@@ -82,4 +82,9 @@ def main():
 
     return isSucccess
 
-main()
+while 1:
+    try:    
+        main()
+        break
+    except:
+        continue
