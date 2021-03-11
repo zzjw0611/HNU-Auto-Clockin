@@ -82,7 +82,7 @@ def main():
 
     return isSucccess
 
-while 1:
+for i in range(10):
     try:    
         main()
         break
