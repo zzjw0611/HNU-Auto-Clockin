@@ -76,6 +76,9 @@ def main():
     if clockin.status_code == 200:
         if '成功' in clockin.text or '已提交' in clockin.text:
             isSucccess = 0
+        else:
+            isSucccess = 1
+            print(json.loads(clockin.text)['msg'])
     else:
         isSucccess = 1
     print(json.loads(clockin.text)['msg'])
