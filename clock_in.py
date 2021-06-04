@@ -83,10 +83,10 @@ def main():
             isSucccess = 0
         else:
             isSucccess = 1
-            print(json.loads(clockin.text))
+            print(json.loads(clockin.text)['msg'])
     else:
         isSucccess = 1
-    print(json.loads(clockin.text))
+    print(json.loads(clockin.text)['msg'])
 
     return isSucccess
 
