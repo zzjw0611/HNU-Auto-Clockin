@@ -14,12 +14,17 @@ args = parser.parse_args()
 
 def captchaOCR():
     captcha = ''
-    token   = ''
-    data = {
-            'image_url': f'https://fangkong.hnu.edu.cn/imagevcode?token={token}',
-            'type': 'https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic',
-            'detect_direction': 'false'
-            }
+    token   = '' 
+    while len(captcha) != 4:
+        token = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
+        data = {
+                'image_url': f'https://fangkong.hnu.edu.cn/imagevcode?token={token}',
+                'type': 'https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic',
+                'detect_direction': 'false'
+                }
+        captcha = requests.post('https://cloud.baidu.com/aidemo', data=data).json()['data']['words_result'][0]['words']
+    print(token, captcha)
+    return token, captcha
             
     while len(captcha) != 4:
         token = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
