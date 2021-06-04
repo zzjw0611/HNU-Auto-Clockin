@@ -1,6 +1,8 @@
 # HNU-Auto-Clockin
-## 目前打卡功能失效，近期马上更新
 HNU疫情防控和健康监测系统每日自动打卡
+**2021.6.4 更新：使用百度云公开OCRapi，不再需要百度账号，此处感谢GGP老哥的提醒，[这个是他打卡脚本的链接](https://github.com/ercha-action/HNU-AutoClockIn)。**
+之前使用本脚本的同学请直接删除用于配置验证码识别的3个id即可。
+
 
 **使用前须知：本项目仅用于学习交流Python语言的学习与相关库的使用，不得用于获利 (NON FOR PROFIT)！如有体温异常等请如实上报！**
 
@@ -24,15 +26,7 @@ Duang~~~在GayHub里面找了一圈才看到一个public的湖大的打卡脚本
 
     你还需要分别以**PROVINCE**, **CITY**, **COUNTY**为NAME添加相应的Secret，Value中请注意须在地名后面添加“省“、”市“、”县/区“，如”湖南省“、”长沙市“、”岳麓区“。另外，详细地址默认为一个句号，你可以在源代码（clock_in.py）中修改。
 
-4. **配置验证码识别API**
-
-    由于不在微信环境下登录打卡系统需要验证码，所以需要使用网上的API来自动识别，请参考如下文章：
-
-    [验证码识别的免费 OCR](https://www.cnblogs.com/xiaowenshu/p/11792012.html)
-
-    按照文章操作注册百度智能云账号，并在控制台创建一个文字识别的应用，拿到**AppID**, **API Key**, **Secret Key**三个参数，再回到GitHub的Secrets界面，分别以**APP_ID**, **API_KEY**, **SECRET_KEY**为NAME创建三个SECRETS。
-
-5. **开始自动化运行**
+4. **开始自动化运行**
 
     进入到**Actions**界面，点击该工作流，然后Run workflow，即可开启自动化运行，你可以在设置里绑定邮箱以接收运行失败的通知，防止未来哪天打卡系统升级了你还蒙在鼓里。
     ![Snipaste_2021-03-15_21-56-15.png](https://i.loli.net/2021/03/16/oxSp8VYlfskWq53.png)
