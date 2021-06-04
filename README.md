@@ -1,6 +1,9 @@
 # HNU-Auto-Clockin
+
 HNU疫情防控和健康监测系统每日自动打卡
+
 **2021.6.4 更新：使用百度云公开OCRapi，不再需要百度账号，此处感谢GGP老哥的提醒，[这个是他打卡脚本的链接](https://github.com/ercha-action/HNU-AutoClockIn)。**
+
 之前使用本脚本的同学请直接删除用于配置验证码识别的3个id即可。
 
 
