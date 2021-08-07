@@ -93,6 +93,11 @@ def main():
 for i in range(10):
     try:    
         main()
-        break
+        if main() == 1:
+            break
+        elif i == 9 and main() == 0:
+            raise valueerror("打卡失败")
+        else:
+            continue
     except:
         continue
