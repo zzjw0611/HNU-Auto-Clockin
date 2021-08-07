@@ -92,10 +92,10 @@ def main():
 
 for i in range(10):
     try:    
-        main()
-        if main() == 0:
+        a = main()
+        if a == 0:
             break
-        elif i == 9 and main() == 1:
+        elif i == 9 and a == 1:
             raise valueerror("打卡失败")
         else:
             continue
