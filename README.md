@@ -2,12 +2,9 @@
 
 HNU疫情防控和健康监测系统每日自动打卡
 
-**2021.6.4 更新：使用百度云公开OCRapi，不再需要百度账号，此处感谢GGP老哥的提醒，[这个是他打卡脚本的链接](https://github.com/ercha-action/HNU-AutoClockIn)。**
+**2021.6.4 更新：使用百度云公开OCRapi，不再需要百度账号，此处感谢GGP老哥的提醒。**
 
 之前使用本脚本的同学请在fetch and merge之后进入Secrets删除用于配置验证码识别的3个id即可（不删也行）。
-
-
-**使用前须知：本项目仅用于学习交流Python语言的学习与相关库的使用，不得用于获利 (NON FOR PROFIT)！如有体温异常等请如实上报！**
 
 参考开源仓库：[中南大学nCov健康打卡定时自动脚本](https://github.com/lxy764139720/Auto_Attendance)
 
