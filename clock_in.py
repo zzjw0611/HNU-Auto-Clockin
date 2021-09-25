@@ -53,7 +53,7 @@ def main():
     headers = login()
     lon, lat, real_address = setLocation()
     clockin_data = {
-                    "Temperature": null,
+                    "Temperature": "null",
                     "RealProvince": args.province,
                     "RealCity": args.city,
                     "RealCounty": args.county,
@@ -107,7 +107,7 @@ for i in range(10):
         if a == 0:
             break
         elif i == 9 and a == 1:
-            raise valueerror("打卡失败")
+            raise ValueError("打卡失败")
         else:
             continue
     except:
