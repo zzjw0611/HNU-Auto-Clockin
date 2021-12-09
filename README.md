@@ -8,6 +8,8 @@ HNU疫情防控和健康监测系统每日自动打卡
 
 参考开源仓库：[中南大学nCov健康打卡定时自动脚本](https://github.com/lxy764139720/Auto_Attendance)
 
+## 觉得有用的话先给👴点个Star呗~
+
 ## 食用方法
 
 本品通过GitHub Actions实现自动化，~~具有美容养颜、改善睡眠、舒肝理气、应该不会再被辅导员电话轰炸或被喝茶等功效。~~ 需要你做的前期工作有：
@@ -39,5 +41,3 @@ HNU疫情防控和健康监测系统每日自动打卡
     我设定为每天早晨6：10自动运行，你可以在/.github/workflows/python-app.yml文件里修改，请注意cron语法下的时间为零时区时间，需要将北京时间减8个小时，且分钟在前小时在后。详情参见[POSIX cron 语法](https://crontab.guru/)和[官方文档](https://docs.github.com/cn/actions/reference/events-that-trigger-workflows#)。
 
 6. **如果一切顺利的话，应该没有第六步。若不是那样，可以在Discussion里面说。**
-
-## 觉得有用的话给👴点个Star呗~
