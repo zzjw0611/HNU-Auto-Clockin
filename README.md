@@ -2,6 +2,9 @@
 
 HNU疫情防控和健康监测系统每日自动打卡
 
+**寒暑假离校返校状态切换：进入clockin.py中的main函数改这个IsInCampus的数值就行了**
+![Snipaste_2022-01-15_21-32-04.png](https://s2.loli.net/2022/01/15/GHs2EvakgqNlBOn.png)
+
 **2021.6.4 更新：使用百度云公开OCRapi，不再需要百度账号，此处感谢GGP老哥的提醒。**
 
 之前使用本脚本的同学请在fetch and merge之后进入Secrets删除用于配置验证码识别的3个id即可（不删也行）。
