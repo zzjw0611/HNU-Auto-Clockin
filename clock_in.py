@@ -77,7 +77,7 @@ def main():
                         "IsVia": "0",
                         "DateTrip": ""
                     },
-                    "IsInCampus": "1",
+                    "IsInCampus": "0",
                     "IsViaHuBei": "0",
                     "IsViaWuHan": "0",
                     "InsulatedAddress": "",
