@@ -2,8 +2,7 @@
 
 HNU疫情防控和健康监测系统每日自动打卡
 
-**寒暑假离校返校状态切换：进入clockin.py中的main函数改这个IsInCampus的数值就行了**
-![Snipaste_2022-01-15_21-32-04.png](https://s2.loli.net/2022/01/15/GHs2EvakgqNlBOn.png)
+**2022.2.23 打卡数据结构发生变化，将于近期更新**
 
 **2021.6.4 更新：使用百度云公开OCRapi，不再需要百度账号，此处感谢GGP老哥的提醒。**
 
@@ -44,3 +43,6 @@ HNU疫情防控和健康监测系统每日自动打卡
     我设定为每天早晨6：10自动运行，你可以在/.github/workflows/python-app.yml文件里修改，请注意cron语法下的时间为零时区时间，需要将北京时间减8个小时，且分钟在前小时在后。详情参见[POSIX cron 语法](https://crontab.guru/)和[官方文档](https://docs.github.com/cn/actions/reference/events-that-trigger-workflows#)。
 
 6. **如果一切顺利的话，应该没有第六步。若不是那样，可以在Discussion里面说。**
+
+**寒暑假离校返校状态切换：进入clockin.py中的main函数改这个IsInCampus的数值就行了**
+![Snipaste_2022-01-15_21-32-04.png](https://s2.loli.net/2022/01/15/GHs2EvakgqNlBOn.png)
