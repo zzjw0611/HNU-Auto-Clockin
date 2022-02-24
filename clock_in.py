@@ -80,14 +80,16 @@ def main():
 
     return isSucccess
 
-for i in range(10):
-    try:    
-        a = main()
-        if a == 0:
-            break
-        elif i == 9 and a == 1:
-            raise ValueError("打卡失败")
-        else:
-            continue
-    except:
-        continue
+main()
+
+# for i in range(10):
+#     try:    
+#         a = main()
+#         if a == 0:
+#             break
+#         elif i == 9 and a == 1:
+#             raise ValueError("打卡失败")
+#         else:
+#             continue
+#     except:
+#         continue
