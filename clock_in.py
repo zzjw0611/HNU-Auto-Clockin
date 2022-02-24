@@ -2,6 +2,9 @@ import requests
 import json
 import argparse
 import re
+import cv2
+import numpy as np
+from captcha import recognize
 
 # 初始化变量
 parser = argparse.ArgumentParser()
@@ -16,19 +19,14 @@ def captchaOCR():
     captcha = ''
     token   = '' 
     while len(captcha) != 4:
-        token = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
-        data = {
-                'image_url': f'https://fangkong.hnu.edu.cn/imagevcode?token={token}',
-                'type': 'https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic',
-                'detect_direction': 'false'
-                }
-        captcha = requests.post('https://cloud.baidu.com/aidemo', data=data).json()['data']['words_result'][0]['words']
-    print(token, captcha)
-    return token, captcha
-            
-    while len(captcha) != 4:
-        token = json.loads(requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').text)['data']['Token']
-        captcha = requests.post('https://cloud.baidu.com/aidemo', data=data).json()['data']['words_result'][0]['words']
+        token = requests.get('https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode').json()['data']['Token']
+        image_raw = requests.get(f'https://fangkong.hnu.edu.cn/imagevcode?token={token}').content
+        image = cv2.imdecode(np.frombuffer(image_raw, np.uint8), cv2.IMREAD_COLOR)
+        try:
+            captcha = recognize(image)
+        except Exception as err:
+            print(err)
+
     return token, captcha
 
 def login():
